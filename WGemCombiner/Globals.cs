@@ -13,7 +13,7 @@
         #endregion
 
         #region Public Methods
-        public static bool IsPowerOfTwo(int cost) => (cost > 0) && (cost & (cost - 1)) == 0;
+        public static bool IsPowerOfTwo(double cost) => Math.Pow(2.0, (int)Math.Log(cost, 2.0)) == cost;
 
         public static void ThrowNull(object value, string name)
         {
