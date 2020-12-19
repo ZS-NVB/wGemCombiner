@@ -187,7 +187,14 @@
 
             if (combine.Gem != null)
             {
-                this.recipeInputRichTextBox.Text = combine.Gem.Recipe();
+                if (combine.ParenthesisLength() <= (1 << 20))
+				{
+                    this.recipeInputRichTextBox.Text = combine.Gem.Recipe();
+                } 
+                else
+				{
+                    this.recipeInputRichTextBox.Text = combine.Equations();
+                }
                 if (Settings.Default.AutoCombine)
                 {
                     this.combineButton.PerformClick(); // Auto-load the combine button so all u have to press is "9" over the gem
