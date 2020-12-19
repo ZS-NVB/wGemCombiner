@@ -100,9 +100,9 @@
 
         public Gem Component2 { get; }
 
-        public int Cost { get; protected set; }
+        public double Cost { get; protected set; }
 
-        public string DisplayInfo => string.Format(CultureInfo.CurrentCulture, "Grade:  +{0}\r\nCost:   {1}x\r\n{2}: {3:0.0#####}\r\nPower:  {4:0.0####}x", this.Grade, this.Cost, this.IsSpec ? "SCoeff" : "Growth", this.Growth, this.Power);
+        public string DisplayInfo => string.Format(CultureInfo.CurrentCulture, "Grade:  +{0}\r\nCost:   x{1:g6}\r\n{2}: {3:0.0#####}\r\nPower:  x{4:g6}", this.Grade, this.Cost, this.IsSpec ? "SCoeff" : "Growth", this.Growth, this.Power);
 
         public int Grade { get; protected set; }
 
@@ -153,6 +153,8 @@
         public string SpecWord => this.IsSpec ? "Spec" : "Combine";
 
         public int UseCount { get; set; }
+
+        public virtual bool IsPureUpgrade { get; } // Set in constructor rather than climbing through the entire tree at every call - better speed at the cost of a slight memory increase per gem
         #endregion
 
         #region Internal Static Properties
@@ -165,8 +167,6 @@
         protected double CriticalMultiplier { get; set; }
 
         protected double Damage { get; set; } // max damage
-
-        protected virtual bool IsPureUpgrade { get; } // Set in constructor rather than climbing through the entire tree at every call - better speed at the cost of a slight memory increase per gem
 
         protected double Leech { get; set; }
 
