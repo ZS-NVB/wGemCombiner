@@ -48,7 +48,7 @@
 
             this.Color = color;
             this.Cost = letter == 'h' ? 2 : 1;
-            this.Grade = this.Cost - 1;
+            this.Grade = (int)this.Cost - 1;
             this.Slot = Combiner.NotSlotted;
 
             this.Blood = color.HasFlag(GemColors.Black) ? 1 : 0;
@@ -66,11 +66,11 @@
 
         #region Public Override Properties
         public override bool IsUpgrade => false;
+
+        public override bool IsPureUpgrade => true;
         #endregion
 
         #region Protected Override Properties
-        protected override bool IsPureUpgrade => true;
-
         protected override string PureRecipe => this.letter;
         #endregion
 
