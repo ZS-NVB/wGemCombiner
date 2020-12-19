@@ -210,6 +210,49 @@
         public Gem Gem { get; private set; }
 
         public string Title { get; set; }
+
+		public String Equations()
+        {
+            String result = "";
+            for (int i = 0; i < gems.Count; i++)
+            {
+                Gem gem = gems[i];
+                var baseGem = gem as BaseGem;
+                result += i.ToString(CultureInfo.CurrentCulture) + " = ";
+                if (baseGem != null)
+				{
+                    result += baseGem.Recipe();
+				} 
+                else
+				{
+                    result += gems.IndexOf(gem.Component1).ToString(CultureInfo.CurrentCulture) + " + " + gems.IndexOf(gem.Component2).ToString(CultureInfo.CurrentCulture);
+                }
+                result += "\n";
+            }
+            return result;
+        }
+
+		public int ParenthesisLength()
+		{
+            int[] uses = new int[gems.Count];
+            uses[uses.Length - 1] = 1;
+            int length = 0;
+            for (int i = uses.Length - 1; 0 <= i; i--)
+			{
+                Gem gem = gems[i];
+                if (gem.IsPureUpgrade)
+				{
+                    int realGrade = gem.Grade + 1;
+                    length += (((1 < realGrade) ? realGrade.ToString(CultureInfo.CurrentCulture).Length : 0) + 1) * uses[i];
+				} else
+				{
+                    length += 3 * uses[i];
+                    uses[gems.IndexOf(gem.Component1)] += uses[i];
+                    uses[gems.IndexOf(gem.Component2)] += uses[i];
+				}
+			}
+            return length;
+		}
         #endregion
 
         #region Public Static Methods
