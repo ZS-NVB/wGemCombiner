@@ -232,25 +232,27 @@
             return result;
         }
 
-		public int ParenthesisLength()
+		public double ParenthesisLength()
 		{
-            int[] uses = new int[gems.Count];
+            double[] uses = new double[this.gems.Count];
             uses[uses.Length - 1] = 1;
-            int length = 0;
-            for (int i = uses.Length - 1; 0 <= i; i--)
+            double length = 0;
+            for (int i = uses.Length - 1; i >= 0; i--)
 			{
-                Gem gem = gems[i];
+                Gem gem = this.gems[i];
                 if (gem.IsPureUpgrade)
 				{
                     int realGrade = gem.Grade + 1;
-                    length += (((1 < realGrade) ? realGrade.ToString(CultureInfo.CurrentCulture).Length : 0) + 1) * uses[i];
-				} else
+                    length += (((realGrade > 1) ? realGrade.ToString(CultureInfo.CurrentCulture).Length : 0) + 1) * uses[i];
+				}
+                else
 				{
                     length += 3 * uses[i];
-                    uses[gems.IndexOf(gem.Component1)] += uses[i];
-                    uses[gems.IndexOf(gem.Component2)] += uses[i];
+                    uses[this.gems.IndexOf(gem.Component1)] += uses[i];
+                    uses[this.gems.IndexOf(gem.Component2)] += uses[i];
 				}
 			}
+
             return length;
 		}
         #endregion
