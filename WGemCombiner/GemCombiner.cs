@@ -44,7 +44,8 @@
         #region Constructors
         public GemCombiner()
         {
-            foreach (var file in new string[] { "bbound", "kgcomb", "kgcomb-bbound", "kgcomb-exact", "leech", "mgcomb", "mgcomb-exact", "mgcomb-leech" })
+            // foreach (var file in new string[] { "bbound", "kgcomb", "kgcomb-bbound", "kgcomb-exact", "leech", "mgcomb", "mgcomb-exact", "mgcomb-leech" })
+            foreach (var file in new string[] { "bbound", "kill", "mana" })
             {
                 foreach (var combiner in GetResourceRecipes(file, false))
                 {
@@ -371,7 +372,7 @@
                     var gem = combiner.Gem;
                     combiner.Title = string.Format(
                         CultureInfo.CurrentCulture,
-                        "{0:0000000}{1} {2:0.000000}",
+                        "{0:g6}{1} {2:0.000000}",
                         gem.Cost,
                         IsPowerOfTwo(gem.Cost) ? "*" : " ",
                         gem.Growth);
